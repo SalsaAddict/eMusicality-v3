@@ -1,37 +1,30 @@
-import { IMeasure } from './ibreakdown';
-import { IndexTracker } from './index-tracker';
+import { IMeasures } from './ibreakdown';
 import { Context, Measure } from './measure';
+import { IStartIndex } from './song';
 
 export class Measures {
-  [index: number]: Measure;
-  static load(
-    iMeasures: number | (number | string | IMeasure)[],
-    startIndex: number,
-    beatsPerMeasure: number,
-    framework: string | undefined): Measures {
-    let measures = new Measures();
-    if (typeof iMeasures === "number") {
+  static load(iMeasures: IMeasures, startIndex: IStartIndex, beatsPerMeasure: number, framework?: string): Measure[] {
+    let measures: Measure[] = [];
+    if (typeof iMeasures === "number")
       for (let i = 0; i < iMeasures; i++)
-        measures[i] = new Measure(i, startIndex, framework, beatsPerMeasure, "primary", i === iMeasures - 1);
-      startIndex += iMeasures * beatsPerMeasure;
-    }
+        measures.push(new Measure(i, startIndex, framework, beatsPerMeasure, "primary", i === iMeasures - 1));
     else iMeasures.forEach((iMeasure, index, array) => {
-      let isLast: boolean = index === array.length - 1;
+      let length: number = beatsPerMeasure,
+        context: Context = "primary",
+        isLast: boolean = index === array.length - 1;
       if (typeof iMeasure === "string")
-        measures[index] = new Measure(index, startIndex, framework = iMeasure, beatsPerMeasure, "primary", isLast);
+        framework = iMeasure;
       else if (typeof iMeasure === "number") {
-        if (iMeasure > 0)
-          measures[index] = new Measure(index, startIndex, framework, iMeasure, iMeasure === beatsPerMeasure ? "primary" : "danger", isLast);
-        else
-          measures[index] = new Measure(index, startIndex, framework, beatsPerMeasure, "warning", isLast);
+        if (iMeasure > 0) length = iMeasure;
+        else if (iMeasure < 0) context = "warning";
       }
       else {
-        let length = iMeasure.beats ?? beatsPerMeasure,
-          context: Context = length !== beatsPerMeasure ? "danger" : iMeasure.warning ? "warning" : "primary";
         framework = iMeasure.framework ?? framework;
-        measures[index] = new Measure(index, startIndex, framework, length, context, isLast);
+        length = iMeasure.length ?? beatsPerMeasure;
+        if (iMeasure.warning) context = "warning";
       }
-      startIndex += measures[index].length;
+      if (length !== beatsPerMeasure) context = "danger";
+      measures.push(new Measure(index, startIndex, framework, length, context, isLast));
     });
     return measures;
   }

@@ -22,13 +22,13 @@
         "IMeasure": {
             "additionalProperties": false,
             "properties": {
-                "beats": {
-                    "title": "beats",
-                    "type": "number"
-                },
                 "framework": {
                     "title": "framework",
                     "type": "string"
+                },
+                "length": {
+                    "title": "length",
+                    "type": "number"
                 },
                 "warning": {
                     "title": "warning",
@@ -128,10 +128,10 @@
             "items": {
                 "anyOf": [
                     {
-                        "$ref": "#/definitions/IGroup"
+                        "$ref": "#/definitions/ITrack"
                     },
                     {
-                        "$ref": "#/definitions/ITrack"
+                        "$ref": "#/definitions/IGroup"
                     },
                     {
                         "type": "string"

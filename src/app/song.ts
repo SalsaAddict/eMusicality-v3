@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { IBreakdown } from './ibreakdown';
 import { ICatalog } from './icatalog';
-import { IndexTracker } from './index-tracker';
 import { Section } from './section';
 import { Sections } from './sections';
+import { Tracks } from './tracks';
 
+export interface IStartIndex { startIndex: number; }
 export class Song {
-  static load(http: HttpClient, songId: string) {
+  static load(audioContext: AudioContext, output: AudioNode, http: HttpClient, songId: string) {
     return new Promise<Song>((resolve, reject) => {
       let path = "assets/songs/";
       http.get<ICatalog>(`${path}catalog.json`)
@@ -14,14 +15,16 @@ export class Song {
           path += `${songId}/`;
           http.get<IBreakdown>(`${path}breakdown.json`)
             .subscribe((iBreakdown) => {
-              let tracker = { startIndex: 1 },
-                sections = Sections.load(iBreakdown.sections, iBreakdown.beatsPerMeasure, tracker.startIndex);
+              let startIndex: IStartIndex = { startIndex: 1 },
+                tracks = Tracks.load(audioContext, output, iBreakdown.tracks, path),
+                sections = Sections.load(iBreakdown.sections, startIndex, iBreakdown.beatsPerMeasure);
               let song = new Song(path,
                 iCatalog.songs[songId].title,
                 iCatalog.songs[songId].artist,
                 iCatalog.songs[songId].genre,
                 iCatalog.songs[songId].bpm,
-                sections, 1, tracker.startIndex - 1);
+                tracks, sections,
+                1, startIndex.startIndex - 1);
               resolve(song);
             }, reject);
         }, reject);
@@ -33,7 +36,11 @@ export class Song {
     readonly artist: string,
     readonly genre: string,
     readonly bpm: number,
-    readonly sections: Sections,
+    readonly tracks: Tracks,
+    readonly sections: Section[],
     readonly startIndex: 1,
-    readonly endIndex: number) { }
+    readonly endIndex: number) {
+    this.length = this.endIndex - this.startIndex + 1;
+  }
+  readonly length: number;
 }
