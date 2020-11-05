@@ -9,12 +9,16 @@ import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BreakdownComponent } from './breakdown/breakdown.component';
 import { TracksComponent } from './tracks/tracks.component';
+import { VolumeButtonComponent } from './volume-button/volume-button.component';
+import { SongHeaderComponent } from './song-header/song-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BreakdownComponent,
-    TracksComponent
+    TracksComponent,
+    VolumeButtonComponent,
+    SongHeaderComponent
   ],
   imports: [
     BrowserModule,

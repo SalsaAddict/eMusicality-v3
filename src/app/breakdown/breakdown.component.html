@@ -1,3 +1,8 @@
-<div *ngIf="song">
-    <emu-tracks [tracks]="song!.tracks"></emu-tracks>
+<div *ngIf="song" class="card">
+    <div class="card-header p-2">
+        <emu-song-header [path]="song!.path" [song]="song!"></emu-song-header>
+    </div>
+    <div class="card-body p-2">
+        <emu-tracks [tracks]="song!.tracks"></emu-tracks>
+    </div>
 </div>

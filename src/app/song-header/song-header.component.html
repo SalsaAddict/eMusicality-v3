@@ -1,0 +1,8 @@
+<div class="media">
+    <img [src]="artwork!" class="img-thumbnail mr-2" [alt]="song!.title" width="64" height="64">
+    <div class="media-body">
+        <h5 class="my-0 font-weight-bold" [innerHTML]="song!.title"></h5>
+        <p class="my-0" [innerHTML]="song!.artist"></p>
+        <small class="my-0 text-muted initialism" [innerHTML]="song!.genre"></small>
+    </div>
+</div>
