@@ -1,20 +1,9 @@
 export class Status {
-  private _busy: boolean = false;
-  private _showBusyIcon: boolean = false;
-  private _busyTimeoutId?: number;
-  get busy() { return this._busy; }
-  set busy(isBusy: boolean) {
-    this._busy = isBusy;
-    if (isBusy)
-      this._busyTimeoutId = window.setTimeout(() => {
-        this._showBusyIcon = true;
-      }, 500);
-    else if (this._busyTimeoutId !== undefined) {
-      window.clearTimeout(this._busyTimeoutId);
-      this._showBusyIcon = false;
-    }
-  }
-  unbusy = () => { this.busy = false; }
-  get showBusyIcon() { return this._showBusyIcon; }
-  playing: boolean = false;
+  constructor(readonly iconDelaySeconds: number = 0.5) { }
+  private _queue: number[] = [];
+  private _showIcon: boolean = false;
+  get state() { return this._queue.length > 0; }
+  get showIcon() { return this._showIcon; }
+  push = () => { this._queue.push(window.setTimeout(() => { this._showIcon = true; }, this.iconDelaySeconds * 500)); }
+  pop = () => { window.clearTimeout(this._queue.pop()); if (!this.state) this._showIcon = false; }
 }

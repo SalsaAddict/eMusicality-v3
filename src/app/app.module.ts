@@ -8,11 +8,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BreakdownComponent } from './breakdown/breakdown.component';
+import { TracksComponent } from './tracks/tracks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BreakdownComponent
+    BreakdownComponent,
+    TracksComponent
   ],
   imports: [
     BrowserModule,

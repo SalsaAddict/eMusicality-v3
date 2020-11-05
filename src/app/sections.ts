@@ -1,16 +1,16 @@
-import { ISection } from './ibreakdown';
+import { IBreakdown, ISection } from './ibreakdown';
 import { Measures } from './measures';
 import { Section } from './section';
 import { IStartIndex } from './song';
 
 export class Sections {
-  static load(iSections: ISection[], startIndex: IStartIndex, beatsPerMeasure: number): Section[] {
+  static load(iBreakdown: IBreakdown, startIndex: IStartIndex): Section[] {
     let sections: Section[] = [];
-    iSections.forEach((iSection, index, array) => {
-      let isLast = index === array.length - 1,
-        framework = iSection.framework,
+    iBreakdown.sections.forEach((iSection, index, array) => {
+      let framework = iSection.framework,
         start = startIndex.startIndex,
-        measures = Measures.load(iSection.measures, startIndex, beatsPerMeasure, framework),
+        isLast = index === array.length - 1,
+        measures = Measures.load(iSection.measures, startIndex, iBreakdown.beatsPerMeasure, framework),
         endIndex = startIndex.startIndex - 1;
       sections.push(new Section(index, iSection.description, measures, start, endIndex, isLast));
     });

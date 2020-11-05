@@ -1,6 +1,3 @@
 <div *ngIf="song">
-    <div *ngFor="let track of song!.tracks.active">
-        <span [innerText]="track.description"></span>
-    </div>
-    <button type="button" class="btn btn-primary" (click)="song!.tracks.play()">Play</button>
+    <emu-tracks [tracks]="song!.tracks"></emu-tracks>
 </div>
