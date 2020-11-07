@@ -1,0 +1,8 @@
+<div class="d-flex w-100">
+    <div *ngFor="let section of song!.sections" [style.width]="width(section)" class="border border-dark"
+        style="height: 10px; cursor: pointer;" [title]="section.description">
+        <div class="w-100 bg-secondary">
+            <div class="bg-primary" [style.width]="progress(section)" style="height: 10px;">&shy;</div>
+        </div>
+    </div>
+</div>

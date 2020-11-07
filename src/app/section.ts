@@ -1,6 +1,7 @@
 import { Measure } from './measure';
+import { IRange } from './utilities';
 
-export class Section {
+export class Section implements IRange {
   constructor(
     readonly index: number,
     readonly description: string,

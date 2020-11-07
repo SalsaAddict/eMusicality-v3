@@ -30,6 +30,13 @@
             ],
             "title": "ISong",
             "type": "object"
+        },
+        "ISongs": {
+            "additionalProperties": {
+                "$ref": "#/definitions/ISong"
+            },
+            "title": "ISongs",
+            "type": "object"
         }
     },
     "properties": {
@@ -41,11 +48,8 @@
             "type": "string"
         },
         "songs": {
-            "additionalProperties": {
-                "$ref": "#/definitions/ISong"
-            },
-            "title": "songs",
-            "type": "object"
+            "$ref": "#/definitions/ISongs",
+            "title": "songs"
         }
     },
     "required": [

@@ -11,6 +11,7 @@ import { BreakdownComponent } from './breakdown/breakdown.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { VolumeButtonComponent } from './volume-button/volume-button.component';
 import { SongHeaderComponent } from './song-header/song-header.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SongHeaderComponent } from './song-header/song-header.component';
     BreakdownComponent,
     TracksComponent,
     VolumeButtonComponent,
-    SongHeaderComponent
+    SongHeaderComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,

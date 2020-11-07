@@ -2,7 +2,12 @@
     <div class="card-header p-2">
         <emu-song-header [path]="song!.path" [song]="song!"></emu-song-header>
     </div>
+    <emu-progress-bar [song]="song!" [beats]="clock!.beats"></emu-progress-bar>
     <div class="card-body p-2">
         <emu-tracks [tracks]="song!.tracks"></emu-tracks>
+    </div>
+    <div class="card-footer p-2">
+        <button type="button" class="btn btn-primary" (click)="play()">Play</button>
+        <button type="button" class="btn btn-primary" (click)="pause()">Pause</button>
     </div>
 </div>

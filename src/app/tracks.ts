@@ -41,8 +41,15 @@ export class Tracks {
       Promise.all(promises).then(() => {
         promises = [];
         this._tracks.forEach(track => promises.push(track.play()));
-        Promise.all(promises).then(() => resolve);
+        Promise.all(promises).then(() => { resolve(); });
       }, reject);
+    });
+  }
+  pause() {
+    return new Promise<void>((resolve, reject) => {
+      let promises: Promise<void>[] = [];
+      this._tracks.forEach(track => promises.push(track.pause()));
+      Promise.all(promises).then(() => { resolve(); });
     });
   }
 }

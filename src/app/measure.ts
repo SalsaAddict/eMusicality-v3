@@ -1,7 +1,8 @@
 import { IStartIndex } from './song';
+import { IRange } from './utilities';
 
 export type Context = "primary" | "warning" | "danger";
-export class Measure {
+export class Measure implements IRange {
   constructor(
     readonly index: number,
     startIndex: IStartIndex,

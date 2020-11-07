@@ -1,7 +1,9 @@
 export interface ICatalog {
   $schema: "../schemas/catalog.json";
-  songs: { [id: string]: ISong };
+  songs: ISongs;
 }
+
+export interface ISongs { [id: string]: ISong }
 
 export interface ISong {
   title: string;
